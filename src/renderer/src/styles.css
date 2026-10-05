@@ -1,0 +1,155 @@
+@import '@fontsource-variable/geist';
+@import '@fontsource-variable/geist-mono';
+@import 'tailwindcss';
+@import '@xyflow/react/dist/style.css';
+
+@theme {
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, monospace;
+
+  --color-ink-950: #0a0a0b;
+  --color-ink-925: #0d0d0f;
+  --color-ink-900: #111114;
+  --color-ink-850: #16161a;
+  --color-ink-800: #1d1d22;
+  --color-ink-700: #2a2a31;
+
+  --color-accent: oklch(0.8 0.115 168);
+  --color-accent-dim: oklch(0.8 0.115 168 / 0.14);
+  --color-danger: oklch(0.7 0.15 25);
+  --color-warn: oklch(0.82 0.12 80);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-ink-950 font-sans text-zinc-200 antialiased;
+    overflow: hidden;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+  ::selection {
+    background: var(--color-accent-dim);
+    color: var(--color-accent);
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #2a2a31 transparent;
+  }
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@utility drag {
+  -webkit-app-region: drag;
+}
+@utility no-drag {
+  -webkit-app-region: no-drag;
+}
+
+@utility hairline {
+  border-color: rgb(255 255 255 / 0.06);
+}
+
+@utility glass {
+  background: rgb(17 17 20 / 0.72);
+  backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgb(255 255 255 / 0.07);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05);
+}
+
+.grain::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background: rgb(255 255 255 / 0.035);
+}
+.shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.05), transparent);
+  animation: shimmer 1.6s infinite;
+}
+@keyframes shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+.breathe {
+  animation: breathe 2.4s var(--ease-out-expo) infinite;
+}
+
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+/* React Flow dark skin */
+.react-flow {
+  --xy-background-color: transparent;
+  --xy-minimap-background-color: #0d0d0f;
+  --xy-minimap-mask-background-color: rgb(10 10 11 / 0.75);
+  --xy-node-boxshadow-selected: none;
+  --xy-handle-background-color: transparent;
+  --xy-handle-border-color: transparent;
+  --xy-controls-button-background-color: #111114;
+  --xy-controls-button-background-color-hover: #1d1d22;
+  --xy-controls-button-color: #a1a1aa;
+  --xy-controls-button-border-color: rgb(255 255 255 / 0.06);
+}
+.react-flow__attribution {
+  display: none;
+}
+.react-flow__handle {
+  width: 6px;
+  height: 6px;
+  min-width: 0;
+  min-height: 0;
+  border: none;
+  opacity: 0;
+}
+.react-flow__minimap {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.06);
+}
+.react-flow__edge.dimmed {
+  opacity: 0.08;
+  transition: opacity 0.4s var(--ease-out-expo);
+}
+.react-flow__edge {
+  transition: opacity 0.4s var(--ease-out-expo);
+}
