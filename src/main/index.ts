@@ -19,6 +19,7 @@ function createWindow(splash?: Splash): void {
     title: 'Viewdata',
     titleBarStyle: 'hidden',
     titleBarOverlay: { color: BG, symbolColor: '#a1a1aa', height: 40 },
+    trafficLightPosition: { x: 14, y: 13 },
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       contextIsolation: true,

@@ -34,6 +34,7 @@ async function call<T>(channel: string, ...args: unknown[]): Promise<T> {
 type Exported = { path: string; rows?: number } | null
 
 const api = {
+  platform: process.platform,
   connections: {
     list: () => call<ConnectionInfo[]>('connections:list'),
     test: (input: ConnectionInput, existingId?: string) => call<TestResult>('connections:test', input, existingId),

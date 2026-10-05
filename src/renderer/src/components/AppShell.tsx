@@ -1,7 +1,7 @@
 import { CaretRight, MagnifyingGlass } from '@phosphor-icons/react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link, useLocation, useMatch, useOutlet } from 'react-router-dom'
-import { cn } from '@/lib/format'
+import { IS_MAC, MOD, cn } from '@/lib/format'
 import { useAnalyticsSubscription, useConnectionDetail, useLiveSnapshots } from '@/lib/queries'
 import { useLive } from '@/stores/live'
 import { useUi } from '@/stores/ui'
@@ -69,19 +69,24 @@ export function AppShell() {
   return (
     <div className="grain flex h-full flex-col">
       <header className="drag flex h-10 shrink-0 items-center border-b hairline">
-        <div className="flex h-full w-72 shrink-0 items-center gap-2.5 border-r hairline px-4 text-zinc-100">
+        <div
+          className={cn(
+            'flex h-full w-72 shrink-0 items-center gap-2.5 border-r hairline px-4 text-zinc-100',
+            IS_MAC && 'pl-20'
+          )}
+        >
           <LogoMark />
           <span className="text-[13px] font-semibold tracking-tight">Viewdata</span>
         </div>
-        <div className="flex min-w-0 flex-1 items-center gap-3 px-5 pr-40">
+        <div className={cn('flex min-w-0 flex-1 items-center gap-3 px-5', !IS_MAC && 'pr-40')}>
           <Breadcrumb />
           <div className="ml-auto flex shrink-0 items-center gap-1.5">
             <button
-              onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true }))}
+              onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: !IS_MAC, metaKey: IS_MAC }))}
               className="no-drag flex h-6 items-center gap-2 rounded-md border hairline px-2 text-[11px] text-zinc-500 transition-colors hover:border-white/[0.12] hover:text-zinc-300"
             >
               <MagnifyingGlass size={11} /> Search
-              <kbd className="font-mono text-[10px] text-zinc-600">Ctrl K</kbd>
+              <kbd className="font-mono text-[10px] text-zinc-600">{MOD} K</kbd>
             </button>
             <button
               onClick={toggleLive}

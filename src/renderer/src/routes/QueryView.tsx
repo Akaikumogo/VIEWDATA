@@ -7,7 +7,7 @@ import { type DbKind, type QueryResult, type SchemaInfo, writesAllowed } from '@
 import { PlainCell } from '@/components/cells'
 import { CodeEditor } from '@/components/CodeEditor'
 import { Button, Menu } from '@/components/ui'
-import { cn, formatExact, timeAgo } from '@/lib/format'
+import { MOD, cn, formatExact, timeAgo } from '@/lib/format'
 import { api, qk, useConnectionDetail, useQueryHistory, useSchema } from '@/lib/queries'
 import { runExport, toast } from '@/stores/toast'
 
@@ -80,7 +80,7 @@ export function QueryView() {
             <Button variant="primary" size="sm" onClick={exec} disabled={run.isPending || !text.trim()}>
               <Play size={12} weight="fill" /> {run.isPending ? 'Running…' : 'Run'}
             </Button>
-            <kbd className="font-mono text-[10px] text-zinc-600">Ctrl Enter</kbd>
+            <kbd className="font-mono text-[10px] text-zinc-600">{MOD} Enter</kbd>
             <div className="mx-2 h-4 w-px bg-white/[0.06]" />
             <label className="flex items-center gap-1.5 text-[11px] text-zinc-500">
               Limit

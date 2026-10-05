@@ -1,3 +1,6 @@
+export const IS_MAC = window.api.platform === 'darwin'
+export const MOD = IS_MAC ? '⌘' : 'Ctrl'
+
 export function formatBytes(n: number | null | undefined): string {
   if (n === null || n === undefined) return '—'
   if (n < 1024) return `${n} B`
